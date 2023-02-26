@@ -1,11 +1,21 @@
 import { User } from "@prisma/client";
 import prisma from "../db";
 
-export const addUser = async (user: User) => {
+export const getAll = async () => {
+  try {
+    const users = await prisma.user.findMany();
+    return users;
+  } catch (error) {
+    return error;
+  }
+};
+export const add = async (user: User) => {
   try {
     const newUser = await prisma.user.create({
       data: user,
     });
     return newUser;
-  } catch (error) {}
+  } catch (error) {
+    return error;
+  }
 };
