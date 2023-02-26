@@ -10,8 +10,18 @@ datasource db {
   url      = "postgresql://bms-admin:bms-admin@bms-db:5432/BMS?schema=BMS-AUTH"
 }
 
+enum Role {
+  admin
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String? 
-  name  String?
+  id    String  @id @default(cuid())
+  name String
+  mobile  String @unique
+  password String
+  role Role 
+  userId String? 
+  companyId String?
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt()
 }

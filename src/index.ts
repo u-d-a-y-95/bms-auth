@@ -1,33 +1,20 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-import express, {
-  Application,
-  Request,
-  Response,
-  NextFunction,
-} from "express";
-// import { pool } from "./db";
+import express, { Application, Request, Response, NextFunction, json } from "express";
+import { rootRouter } from "./routes/rootRoute";
 
-import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
 
 const app: Application = express();
 
-app.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  const data = await prisma.user.findMany();
-  return res.json(data);
+app.use(json())
+app.use('/', rootRouter)
+
+app.get("/tes", async (req: Request, res: Response, next: NextFunction) => {
+  return res.json("api is running good");
 });
-app.get("/add", async (req: Request, res: Response, next: NextFunction) => {
-  const data = await prisma.user.create({
-    data:{
-        name:"jui",
-        email:"jui@gmail.com"
-    }
-  });
-  return res.json(data);
-});
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`auth server is running on ${PORT}`));
