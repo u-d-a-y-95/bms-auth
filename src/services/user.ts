@@ -19,3 +19,11 @@ export const add = async (user: User) => {
     return error;
   }
 };
+
+export const getOne = async (mobile: string) => {
+  return prisma.user.findUnique({
+    where: {
+      mobile,
+    },
+  });
+};
