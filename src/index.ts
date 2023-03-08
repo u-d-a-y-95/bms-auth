@@ -13,8 +13,8 @@ mq.connect()
 app.use(json())
 app.use('/', rootRouter)
 
-app.get("/tes", async (req: Request, res: Response, next: NextFunction) => {
-  return res.json("api is running good");
+app.get("/health", async (req: Request, res: Response, next: NextFunction) => {
+  return res.sendStatus(200).send("ok");
 });
 
 
