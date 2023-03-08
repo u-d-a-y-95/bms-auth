@@ -2,12 +2,14 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express, { Application, Request, Response, NextFunction, json } from "express";
+import { mq } from "./mq";
 import { rootRouter } from "./routes/rootRoute";
 
 
 
-const app: Application = express();
 
+const app: Application = express();
+mq.connect()
 app.use(json())
 app.use('/', rootRouter)
 
